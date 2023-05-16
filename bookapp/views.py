@@ -32,19 +32,6 @@ def hijriCal(request):
 
     # let's convert this to JSON
     today = today_response.json()
-    # print(today)
-    data = today['data']
-
-    """
-    for d in data:
-        date_today = {}
-        date_today['Hijri_Date'] = d['hijri']['date']
-        date_today['Day'] = d['hijri'][0]['day']
-        date_today['Month'] = d['hijri'][0]['month']
-        date_today['Year'] = d['hijri'][0]['year']
-        date_today['Gregorian_Date'] = d['gregorian'][0]['date']
-        parsed_date.append(date_today)
-    """
 
     return render(request, "today.html", {'today': today})
 
