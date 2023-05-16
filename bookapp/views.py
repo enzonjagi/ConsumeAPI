@@ -16,7 +16,7 @@ def users(request):
 
     return render(request, "users.html", {'users': users})
 
-def hijriCal(request):
+def hijri_today(request):
     """We'll use this to consume the Hijri calendar api
     
     Find more info: 
@@ -34,6 +34,32 @@ def hijriCal(request):
     today = today_response.json()
 
     return render(request, "today.html", {'today': today})
+def hijri_month(request):
+    """The goal of this function is to create a view of the whole month requested
+    
+    Process:
+        1. Create forms for user to specify Gregorian month number and year
+        2. Use this month and year to make a api call and pull data
+            * Append the month and date to the necessary parts of the api call
+        3. Display the month name at the top of the page
+        4. Call the hijri_day function to give us the days of that month
+        5. Fill in the days of the month to the created Month table.
+    """
+
+    # we'll start with default values then add a feature to allow user to change these:
+    # USer can supply month number in url or in a form on the page
+    month_num = 1
+    year_num = 2023
+    url = f'http://api.aladhan.com/v1/gToHCalendar/{month_num}/{year_num}'
+
+    # pull the data
+    month = requests.get(url)
+
+    # convert the month to JSON
+    month_data = month.json()
+    # print(month_data)
+
+    return render(request, "month.html", {'month': month_data})
 
 def prayer_times(request):
     """We'll use the aladhan API to get Prayer Times for this View"""
