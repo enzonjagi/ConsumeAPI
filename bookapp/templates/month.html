@@ -10,16 +10,14 @@
       </head>
       <body>
           <div class="container-fluid p-2 bg-primary text-white text-center">
-              <h1>{{ month.data.0.hijri.month.en }} || {{ month.data.0.hijri.month.ar }} ({{ month.data.0.gregorian.month.en }}) </h1>
+              <h1>{{ month.data.0.hijri.year }} || {{ month.data.0.gregorian.year }} </h1>
           </div>
           <div class="container mt-5">
                 <div class="col">
-                    <p class="h1">{{ month.data.0.hijri.month.ar }}</p>
+                    <p class="h1">{{ month.data.0.hijri.month.ar }} || {{ month.data.0.hijri.month.en }}</p>
                     <ul class="list-group">
                         <li class="list-group-item">Hijri Year: {{ month.data.0.hijri.year }}</li>
-                        <li class="list-group-item">Hijri Month: {{ month.data.0.hijri.month.en }}</li>
                         <li class="list-group-item">Hijri Date: {{ month.data.0.hijri.date }}</li>
-                        <li class="list-group-item">Hijri Day: {{ month.data.0.hijri.day }}</li>
                     </ul>
                 </div>
                 <br>
@@ -27,9 +25,7 @@
                     <p class="h1">{{ month.data.0.gregorian.month.en }}</p>
                     <ul class="list-group">
                         <li class="list-group-item">Gregorian Year: {{ month.data.0.gregorian.year }}</li>
-                        <li class="list-group-item">Gregorian Month: {{ month.data.0.gregorian.month.en }}</li>
                         <li class="list-group-item">Gregorian Date: {{ month.data.0.gregorian.date }}</li>
-                        <li class="list-group-item">Gregorian Day: {{ month.data.0.gregorian.day }}</li>
                     </ul>
                 </div>
             
@@ -40,19 +36,21 @@
                         <tr>
                             <th scope="col">Hijri Year</th>
                             <th scope="col">Hijri Month</th>
-                            <th scope="col">Hijri Date</th>
                             <th scope="col">Hijri Day</th>
                             <th scope="col">Gregorian Month</th>
+                            <th scope="col">Gregorian Day</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {% for obj in month.data %}
                         <tr>
-                            <td>{{ month.data.0.hijri.year }}</td>
-                            <td>{{ month.data.0.hijri.month.en }}</td>
-                            <td>{{ month.data.0.hijri.date }}</td>
-                            <td>{{ month.data.0.hijri.day }}</td>
-                            <td>{{ month.data.0.gregorian.month.en }}</td>
+                            <td>{{ obj.hijri.year }}</td>
+                            <td>{{ obj.hijri.month.en }}</td>
+                            <td>{{ obj.hijri.day }}</td>
+                            <td>{{ obj.gregorian.month.en }}</td>
+                            <td>{{ obj.gregorian.day }}</td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
 
