@@ -45,10 +45,14 @@ def hijri_month(request):
         4. Call the hijri_day function to give us the days of that month
         5. Fill in the days of the month to the created Month table.
     """
+    
+    #TODO Start from step 3 and start by answering the following question: 
+    #   * How do we add numbers to the end of a url in Django?
+    #   * How do we use this number as input for the month_num variable?
 
     # we'll start with default values then add a feature to allow user to change these:
     # USer can supply month number in url or in a form on the page
-    month_num = 1
+    month_num = 5
     year_num = 2023
     url = f'http://api.aladhan.com/v1/gToHCalendar/{month_num}/{year_num}'
 
