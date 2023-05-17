@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import requests, aladhan
+from .models import Month
+import requests, aladhan, json
 
 def users(request):
     """We'll use this to pull data from the rest API"""
@@ -52,20 +53,43 @@ def hijri_month(request):
 
     # we'll start with default values then add a feature to allow user to change these:
     # USer can supply month number in url or in a form on the page
-    month_num = 5
     year_num = 2023
-    url = f'http://api.aladhan.com/v1/gToHCalendar/{month_num}/{year_num}'
+    url = f'http://api.aladhan.com/v1/gToHCalendar/{1}/{year_num}'
 
     # pull the data
     month = requests.get(url)
 
     # convert the month to JSON
     month_data = month.json()
-    # print(month_data)
+
+    '''
+    count = 1
+    months = []
+    while count <= 12:
+        url = f'http://api.aladhan.com/v1/gToHCalendar/{count}/{year_num}'
+
+        # pull the data
+        month = requests.get(url)
+
+        # convert the month to JSON
+        month_data = month.json()
+        months.append(month_data)
+
+        count += 1
+
+    # making a JSON with info for all the 12 gregorian months of 2023
+    # alongside their Hijri counterparts
+    month_json = {}
+    for i in range(1, 12):
+        month_json = {f'{i}': month for month in months}
+
+    month_fin = json.dumps(month_json)
+    '''
 
     return render(request, "month.html", {'month': month_data})
 
 def prayer_times(request):
+
     """We'll use the aladhan API to get Prayer Times for this View"""
 
     country = aladhan.City("Nairobi", "KE")
